@@ -21,19 +21,23 @@ function operate(func, x, y){
 
 // Global varibales
 const lowerDisp = document.querySelector('.lower');
+const upperDisp = document.querySelector('.upper');
+const nums = document.querySelectorAll("#num");
+const operators = document.querySelectorAll('#operator');
 
+// Event listners
+nums.forEach(num => num.addEventListener('click', numToLowDisp)); // To display numbers.
+operators.forEach((operator) => operator.addEventListener('click', () => { // Updates the upper display and clears the lower after operator is clicked.
+    updateUpper();
+    clearLower();
+}));
 
-// Adds numbers to the display when button is clicked
-nums = document.querySelectorAll("#num");
-console.log('nums:', nums);
-nums.forEach(num => num.addEventListener('click', numToLowDisp));
-
+// Functions defined
 /*
 Updates the lower display to reflect the button that was pressed by the user.
 */
 function numToLowDisp(event) {
     const className = buttonPressed(event);
-    console.log(className);
     switch (className) {
         case 'zero':
             lowerDisp.insertAdjacentHTML("beforeend", '0');
@@ -68,8 +72,24 @@ function numToLowDisp(event) {
     }
 };
 
+
+/*
+Saves the number entered by user as a varibale and updates the upper display 
+as the entered number.
+*/
+function updateUpper() {
+    const numVar = lowerDisp.innerHTML;
+    upperDisp.textContent = numVar;
+    return numVar;
+};
+
+// Clears the lower display after an operator is inputed
+function clearLower() {
+    lowerDisp.textContent = "";
+};
+
 // Get class of Clicked Element
 const buttonPressed = e => {
     return e.target.className;  
-  }
+};
 
