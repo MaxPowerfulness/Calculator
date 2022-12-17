@@ -1,29 +1,10 @@
-// Math operation functions
-function add(x, y) {
-    return x + y;
-};
-
-function subtract(x, y) {
-    return x - y;
-};
-
-function multiply(x, y) {
-    return x * y;
-};
-
-function divide(x, y) {
-    return x / y;
-};
-
-function operate(func, x, y){
-    return func(x, y);
-};
-
 // Global varibales
 const lowerDisp = document.querySelector('.lower');
 const upperDisp = document.querySelector('.upper');
 const nums = document.querySelectorAll("#num");
 const operators = document.querySelectorAll('#operator');
+const allClear = document.querySelector('.allClear');
+operatorList = []; // stores user input history for operators.
 
 // Event listners
 nums.forEach(num => num.addEventListener('click', numToLowDisp)); // To display numbers.
@@ -31,6 +12,8 @@ operators.forEach(operator => operator.addEventListener('click', (event) => { //
     numToUpDisp(event);
     clearLower();
 }));
+allClear.addEventListener('click', clearAll);
+
 
 // Functions defined
 /* Updates the lower display to reflect the button that was pressed by the user. */
@@ -76,41 +59,34 @@ Saves the number entered by user as a varibale and updates the upper display
 as the entered number.
 */
 function numToUpDisp(event) {
+    console.log(operatorList);
     operatorList.push(getClass(event));
-    switch (operatorList[operatorList.length -2]) {
-        case 'plus':
-            if (isNaN(parseInt(upperDisp.innerHTML))) {
-                upperDisp.textContent = lowerDisp.innerHTML;
-            } else {
-                upperDisp.textContent = add(parseInt(numVar), parseInt(lowerDisp.innerHTML));
-            };
-            break;
-        case 'minus':
-            if (isNaN(parseInt(upperDisp.innerHTML))) {
-                upperDisp.textContent = lowerDisp.innerHTML;
-            } else {
-                upperDisp.textContent = subtract(parseInt(numVar), parseInt(lowerDisp.innerHTML));
-            };
-            break;
-        case 'multiply':
-            if (isNaN(parseInt(upperDisp.innerHTML))) {
-                upperDisp.textContent = lowerDisp.innerHTML;
-            } else {
+    if (isNaN(parseInt(upperDisp.innerHTML))) {
+        upperDisp.textContent = lowerDisp.innerHTML;
+    } else {
+        switch (operatorList[operatorList.length - 2]) {
+            case 'plus':
+                upperDisp.textContent = add(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+                break;
+            case 'minus':
+                upperDisp.textContent = subtract(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+                break;
+            case 'multiply':
                 upperDisp.textContent = multiply(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
-            };
-            break;
-        case 'divide':
-            if (isNaN(parseInt(upperDisp.innerHTML))) {
-                upperDisp.textContent = lowerDisp.innerHTML;
-            } else {
+                break;
+            case 'divide':
                 upperDisp.textContent = divide(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+                break;
             };
-            break;
-    }
-    
+        };
 };
 
-operatorList = [];
+/* Clears everything to reset the calculator. */
+function clearAll() {
+    operatorList = [];
+    upperDisp.textContent = "";
+    lowerDisp.textContent = "";
+}
 
 /* Clears the lower display after an operator is inputed. */
 function clearLower() {
@@ -122,3 +98,23 @@ const getClass = e => {
     return e.target.className;  
 };
 
+// Math operation functions
+function add(x, y) {
+    return x + y;
+};
+
+function subtract(x, y) {
+    return x - y;
+};
+
+function multiply(x, y) {
+    return x * y;
+};
+
+function divide(x, y) {
+    return x / y;
+};
+
+function operate(func, x, y){
+    return func(x, y);
+};
