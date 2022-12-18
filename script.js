@@ -17,7 +17,7 @@ operators.forEach(operator => operator.addEventListener('click', (event) => { //
 }));
 allClear.addEventListener('click', clearAll);
 equals.addEventListener('click', function() {
-    if (lowerDisp.innerHTML == "") {
+    if (lowerDisp.innerHTML == "" | upperDisp.innerHTML == "") {
         return
     }else {
         operate(operatorList[operatorList.length-1]);
