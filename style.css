@@ -11,18 +11,20 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: space-around;
-    background: rgb(168, 166, 166);
-    height: 600px;
-    width: 500px;
+    background: rgb(2, 199, 206);
+    height: 550px;
+    width: 400px;
+    border: 2px solid black;
+    box-shadow: 2px 4px;
 }
 
 #displayBack {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: grey;
-    height: 100px;
-    width: 450px;
+    background: rgb(70, 69, 69);
+    height: 75px;
+    width: 350px;
 }
 
 #display {
@@ -30,9 +32,10 @@ body {
     flex-direction: column;
     align-items: flex-end;
     justify-content: space-between;
-    background: lightgrey;
-    height: 80px;
-    width: 425px;
+    background: rgb(0, 0, 0);
+    height: 70px;
+    width: 345px;
+    color: white;
 }
 
 .upper,
@@ -55,9 +58,15 @@ ul {
 
 }
 
-ul li {
-    border: 1px solid red;
+button {
+    border: 1px solid rgb(10, 80, 15);
     text-align: center;
     padding: 15px 20px;
+    width: 65px;
+    border-radius: 5px;
+    font-size: 20px;
+}
 
+button:active {
+    transform: scale(1.2);
 }

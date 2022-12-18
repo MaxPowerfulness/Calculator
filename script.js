@@ -7,9 +7,9 @@ const allClear = document.querySelector('.allClear');
 const equals = document.querySelector('.equal');
 const decimal = document.querySelector('.decimal');
 const back = document.querySelector('.back');
-let operatorList = []; // stores user input history for operators.
+let operatorList = []; // stores user input history for operator selection.
 
-// Event listners
+// Event listeners
 nums.forEach(num => num.addEventListener('click', numToLowDisp)); // To display numbers.
 operators.forEach(operator => operator.addEventListener('click', (event) => { // Updates the upper display and clears the lower after operator is clicked.
     numToUpDisp(event);
