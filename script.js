@@ -5,6 +5,8 @@ const nums = document.querySelectorAll("#num");
 const operators = document.querySelectorAll('#operator');
 const allClear = document.querySelector('.allClear');
 const equals = document.querySelector('.equal');
+const decimal = document.querySelector('.decimal');
+const back = document.querySelector('.back');
 let operatorList = []; // stores user input history for operators.
 
 // Event listners
@@ -15,9 +17,23 @@ operators.forEach(operator => operator.addEventListener('click', (event) => { //
 }));
 allClear.addEventListener('click', clearAll);
 equals.addEventListener('click', function() {
-    operate(operatorList[operatorList.length-1]);
-    lowerDisp.textContent="";
+    if (lowerDisp.innerHTML == "") {
+        return
+    }else {
+        operate(operatorList[operatorList.length-1]);
+        lowerDisp.textContent="";
+    }
 });
+decimal.addEventListener('click', () => {
+    if (lowerDisp.innerHTML.includes('.')) {
+        return;
+    } else {
+        lowerDisp.insertAdjacentHTML('beforeend', '.');
+    }
+})
+back.addEventListener('click', () => {
+    lowerDisp.textContent = lowerDisp.innerHTML.slice(0, this.length-1);
+})
 
 
 // Functions defined
@@ -65,9 +81,9 @@ as the entered number. Also saves operator selected into a list.
 */
 function numToUpDisp(event) {
     operatorList.push(getClass(event));
-    if (isNaN(parseInt(upperDisp.innerHTML))) {
+    if (isNaN(parseFloat(upperDisp.innerHTML))) {
         upperDisp.textContent = lowerDisp.innerHTML;
-    } else if (isNaN(parseInt(lowerDisp.innerHTML))) {
+    } else if (isNaN(parseFloat(lowerDisp.innerHTML))) {
         return;
     }
     else {
@@ -75,21 +91,29 @@ function numToUpDisp(event) {
     };
 };
 
-// Evalutes 
+/* 
+Evalutes an operation between two numbers depending on the given operator. Takes the parameter
+for selecting the operator from operatorList as a parameter.
+*/
 function operate(opListParam) {
     switch (opListParam) {
         case 'plus':
-            upperDisp.textContent = add(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+            upperDisp.textContent = add(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
             break;
         case 'minus':
-            upperDisp.textContent = subtract(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+            upperDisp.textContent = subtract(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
             break;
         case 'multiply':
-            upperDisp.textContent = multiply(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
+            upperDisp.textContent = multiply(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
             break;
         case 'divide':
-            upperDisp.textContent = divide(parseInt(upperDisp.innerHTML), parseInt(lowerDisp.innerHTML));
-            break;
+            if (lowerDisp.innerHTML == '0') {
+                alert('Dont even try');
+                break;
+            } else{
+                upperDisp.textContent = divide(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
+                break;
+            }
     };
 };
 
@@ -128,9 +152,3 @@ function multiply(x, y) {
 function divide(x, y) {
     return x / y;
 };
-
-/*
-function operate(func, x, y){
-    return func(x, y);
-};
-*/
