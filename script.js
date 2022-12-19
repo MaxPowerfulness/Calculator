@@ -30,11 +30,10 @@ decimal.addEventListener('click', () => {
     } else {
         lowerDisp.insertAdjacentHTML('beforeend', '.');
     }
-})
+});
 back.addEventListener('click', () => {
     lowerDisp.textContent = lowerDisp.innerHTML.slice(0, this.length-1);
-})
-
+});
 
 // Functions defined
 /* Updates the lower display to reflect the button that was pressed by the user. */
@@ -114,6 +113,8 @@ function operate(opListParam) {
                 upperDisp.textContent = divide(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
                 break;
             }
+        case 'power':
+            upperDisp.textContent = powerOf(parseFloat(upperDisp.innerHTML), parseFloat(lowerDisp.innerHTML));
     };
 };
 
@@ -152,3 +153,7 @@ function multiply(x, y) {
 function divide(x, y) {
     return x / y;
 };
+
+function powerOf(x, y) {
+    return x ** y;
+}
